@@ -1,0 +1,234 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/mcollina/split2#readme"
+
+    >split2 (v2.1.1)</a>
+</h1>
+<h4>split a Text Stream into a Line Stream, using Stream 3</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.split2">module split2</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.split2.split2">
+            function <span class="apidocSignatureSpan"></span>split2
+            <span class="apidocSignatureSpan">(matcher, mapper, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.split2.toString">
+            function <span class="apidocSignatureSpan">split2.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.split2.toString">module split2.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.split2.toString.toString">
+            function <span class="apidocSignatureSpan">split2.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.split2" id="apidoc.module.split2">module split2</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.split2.split2" id="apidoc.element.split2.split2">
+        function <span class="apidocSignatureSpan"></span>split2
+        <span class="apidocSignatureSpan">(matcher, mapper, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function split(matcher, mapper, options) {
+  // Set defaults for any arguments not supplied.
+  matcher = matcher || /\r?\n/
+  mapper = mapper || noop
+  options = options || {}
+
+  // Test arguments explicitly.
+  switch (arguments.length) {
+    case 1:
+      // If mapper is only argument.
+      if (typeof matcher === &#x27;function&#x27;) {
+        mapper = matcher
+        matcher = /\r?\n/
+      // If options is only argument.
+      } else if (typeof matcher === &#x27;object&#x27; &#x26;&#x26; !(matcher instanceof RegExp)) {
+        options = matcher
+        matcher = /\r?\n/
+      }
+      break
+
+    case 2:
+      // If mapper and options are arguments.
+      if (typeof matcher === &#x27;function&#x27;) {
+        options = mapper
+        mapper = matcher
+        matcher = /\r?\n/
+      // If matcher and options are arguments.
+      } else if (typeof mapper === &#x27;object&#x27;) {
+        options = mapper
+        mapper = noop
+      }
+  }
+
+  var stream = through(options, transform, flush)
+
+  // this stream is in objectMode only in the readable part
+  stream._readableState.objectMode = true
+
+  stream._last = &#x27;&#x27;
+  stream._decoder = new StringDecoder(&#x27;utf8&#x27;)
+  stream.matcher = matcher
+  stream.mapper = mapper
+  stream.maxLength = options.maxLength
+
+  return stream
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.split2.toString" id="apidoc.element.split2.toString">
+        function <span class="apidocSignatureSpan">split2.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+test(&#x27;truncated utf-8 char&#x27;, function (t) {
+t.plan(2)
+
+var input = split()
+
+input.pipe(strcb(function (err, list) {
+  t.error(err)
+  t.deepEqual(list, [&#x27;烫&#x27; + new Buffer(&#x27;e7&#x27;, &#x27;hex&#x27;).<span class="apidocCodeKeywordSpan">toString</span
+>()])
+}))
+
+var str = &#x27;烫烫&#x27;
+var buf = new Buffer(str, &#x27;utf8&#x27;)
+
+input.write(buf.slice(0, 3))
+input.end(buf.slice(3, 4))
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.split2.toString" id="apidoc.module.split2.toString">module split2.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.split2.toString.toString" id="apidoc.element.split2.toString.toString">
+        function <span class="apidocSignatureSpan">split2.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+test(&#x27;truncated utf-8 char&#x27;, function (t) {
+t.plan(2)
+
+var input = split()
+
+input.pipe(strcb(function (err, list) {
+  t.error(err)
+  t.deepEqual(list, [&#x27;烫&#x27; + new Buffer(&#x27;e7&#x27;, &#x27;hex&#x27;).<span class="apidocCodeKeywordSpan">toString</span
+>()])
+}))
+
+var str = &#x27;烫烫&#x27;
+var buf = new Buffer(str, &#x27;utf8&#x27;)
+
+input.write(buf.slice(0, 3))
+input.end(buf.slice(3, 4))
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
