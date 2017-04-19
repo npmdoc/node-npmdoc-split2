@@ -70,28 +70,6 @@
 
         </li>
 
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.split2.toString">
-            function <span class="apidocSignatureSpan">split2.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.split2.toString">module split2.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.split2.toString.toString">
-            function <span class="apidocSignatureSpan">split2.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
     </ol></li>
 
 </ol></div>
@@ -154,73 +132,6 @@
   return stream
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.split2.toString" id="apidoc.element.split2.toString">
-        function <span class="apidocSignatureSpan">split2.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-test(&#x27;truncated utf-8 char&#x27;, function (t) {
-t.plan(2)
-
-var input = split()
-
-input.pipe(strcb(function (err, list) {
-  t.error(err)
-  t.deepEqual(list, [&#x27;烫&#x27; + new Buffer(&#x27;e7&#x27;, &#x27;hex&#x27;).<span class="apidocCodeKeywordSpan">toString</span
->()])
-}))
-
-var str = &#x27;烫烫&#x27;
-var buf = new Buffer(str, &#x27;utf8&#x27;)
-
-input.write(buf.slice(0, 3))
-input.end(buf.slice(3, 4))
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.split2.toString" id="apidoc.module.split2.toString">module split2.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.split2.toString.toString" id="apidoc.element.split2.toString.toString">
-        function <span class="apidocSignatureSpan">split2.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-test(&#x27;truncated utf-8 char&#x27;, function (t) {
-t.plan(2)
-
-var input = split()
-
-input.pipe(strcb(function (err, list) {
-  t.error(err)
-  t.deepEqual(list, [&#x27;烫&#x27; + new Buffer(&#x27;e7&#x27;, &#x27;hex&#x27;).<span class="apidocCodeKeywordSpan">toString</span
->()])
-}))
-
-var str = &#x27;烫烫&#x27;
-var buf = new Buffer(str, &#x27;utf8&#x27;)
-
-input.write(buf.slice(0, 3))
-input.end(buf.slice(3, 4))
-...</pre></li>
     </ul>
 
 
